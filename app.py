@@ -1,3 +1,4 @@
+%%writefile app.py
 
 from flask import Flask, request, jsonify
 import joblib
@@ -20,11 +21,11 @@ def predict():
         data = request.get_json()
 
         # Convert input data into a NumPy array
-        features = np.array([list(data.values())]).reshape(1, -1)
+        features = np.array([list(data.values())], dtype=np.float64).reshape(1, -1)
 
         # Make prediction
-        prediction = model.predict(features)[0]
-        probability = model.predict_proba(features)[0][1]  # Probability of approval
+        prediction = int(model.predict(features)[0])  # Ensure integer output
+        probability = float(model.predict_proba(features)[0][1])  # Convert to Python float
 
         # Return the response
         return jsonify({
