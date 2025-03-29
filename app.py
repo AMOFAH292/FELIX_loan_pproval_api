@@ -27,8 +27,8 @@ def predict():
 
         # Return the response
         return jsonify({
-            "loan_approval_status": "Approved" if prediction == 1 else "Denied",
-            "approval_probability": round(probability, 2)
+            "prediction": prediction,
+            "prediction_probability": round(probability, 2)
         })
 
     except Exception as e:
